@@ -17,6 +17,12 @@ pub struct DockStyle {
     pub dock_gap: Option<f32>,
     pub min_pane: f32,
     pub background: Color32,
+    /// Painted under the dock's columns, behind the groups' own `background`, so the gaps
+    /// between rounded groups show the app's surround instead of the panel colour.
+    pub dock_background: Color32,
+    /// Corner radius of a panel group: its tab strip's top corners and its body's bottom ones.
+    /// 0 keeps the classic square docking chrome.
+    pub panel_radius: f32,
     pub tab_background: Color32,
     pub active_background: Color32,
     pub text: Color32,
@@ -180,6 +186,8 @@ impl DockStyle {
             dock_gap: None,
             min_pane: 40.0,
             background: visuals.panel_fill,
+            dock_background: visuals.panel_fill,
+            panel_radius: 0.0,
             tab_background: visuals.extreme_bg_color,
             active_background: visuals.widgets.active.bg_fill,
             text: visuals.text_color(),

@@ -293,7 +293,7 @@ impl<P: Clone + Eq + Hash + Debug + Send + Sync + 'static> Renderer<'_, P> {
             return;
         }
         if usable(rect) {
-            ui.painter().rect_filled(rect, 0.0, self.style.background);
+            ui.painter().rect_filled(rect, 0.0, self.style.dock_background);
         }
         let DockColumns { bounds, natural, widths, rects } = self.dock_columns(side, columns, rect);
         let scaled = widths.iter().zip(&natural).any(|(w, (n, _))| w != n);

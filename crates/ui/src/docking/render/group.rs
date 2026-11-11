@@ -75,7 +75,11 @@ impl<P: Clone + Eq + Hash + Debug + Send + Sync + 'static> Renderer<'_, P> {
         }
         let movable = panels.iter().all(|p| self.permissions(p).movable);
         let strip = Rect::from_min_max(rect.min, pos2(rect.right(), (rect.top() + self.style.tab_height).min(rect.bottom())));
-        ui.painter().rect_filled(strip, 0.0, self.style.tab_background);
+        ui.painter().rect_filled(
+            strip,
+            egui::CornerRadius { nw: self.style.panel_radius as u8, ne: self.style.panel_radius as u8, sw: 0, se: 0 },
+            self.style.tab_background,
+        );
         let floating = matches!(kind, GroupKind::Floating { .. });
         // Laid out left to right, then mirrored in a right-to-left layout: tabs from the right
         // edge, the header (the host's ≡) at the left.
