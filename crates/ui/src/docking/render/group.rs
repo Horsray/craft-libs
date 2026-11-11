@@ -440,9 +440,11 @@ impl<P: Clone + Eq + Hash + Debug + Send + Sync + 'static> Renderer<'_, P> {
             .focus_stroke(if pointer_focus { Stroke::NONE } else { Stroke::new(1.0, self.style.accent) })
             .show_at(ui, rect, |ui, response| {
                 let painter = ui.painter().with_clip_rect(rect.intersect(ui.clip_rect()));
+                let inset = self.style.tab_fill_inset;
+                let fill = if inset > 0.0 { rect.shrink2(vec2(0.0, inset)) } else { rect };
                 painter.rect_filled(
-                    rect,
-                    0.0,
+                    fill,
+                    if inset > 0.0 { self.style.tab_fill_radius } else { 0.0 },
                     if visual_active || response.hovered() { self.style.active_background } else { self.style.tab_background },
                 );
                 let at = pos2(rect.left() + TAB_PADDING * 0.5, rect.center().y - galley.size().y * 0.5);

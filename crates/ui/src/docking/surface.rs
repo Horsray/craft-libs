@@ -25,6 +25,11 @@ pub struct DockStyle {
     pub panel_radius: f32,
     pub tab_background: Color32,
     pub active_background: Color32,
+    /// Vertical inset of a tab's fill (pt): 0 fills the whole strip height, a value keeps the
+    /// selected tab a shorter pill around its label.
+    pub tab_fill_inset: f32,
+    /// Corner radius of that pill fill; ignored when `tab_fill_inset` is 0.
+    pub tab_fill_radius: f32,
     pub text: Color32,
     pub inactive_text: Color32,
     pub border: Stroke,
@@ -190,6 +195,8 @@ impl DockStyle {
             panel_radius: 0.0,
             tab_background: visuals.extreme_bg_color,
             active_background: visuals.widgets.active.bg_fill,
+            tab_fill_inset: 0.0,
+            tab_fill_radius: 0.0,
             text: visuals.text_color(),
             inactive_text: visuals.weak_text_color(),
             border: visuals.widgets.noninteractive.bg_stroke,
