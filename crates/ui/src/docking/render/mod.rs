@@ -417,7 +417,11 @@ impl<P: Clone + Eq + Hash + Debug + Send + Sync + 'static> Renderer<'_, P> {
         if !crate::docking::targets::usable(rect) {
             return;
         }
-        ui.painter().rect_filled(rect, 0.0, self.style.background);
+        ui.painter().rect_filled(
+            rect,
+            egui::CornerRadius { nw: 0, ne: 0, sw: self.style.panel_radius as u8, se: self.style.panel_radius as u8 },
+            self.style.background,
+        );
         let mut child =
             ui.new_child(UiBuilder::new().scope_id(self.id.with(("body", panel))).max_rect(rect).layout(egui::Layout::top_down(egui::Align::Min)));
         child.set_clip_rect(rect.intersect(ui.clip_rect()));
